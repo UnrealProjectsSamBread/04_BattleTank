@@ -2,10 +2,29 @@
 
 #include "TankPlayerController_1.h"
 
-ATank* ATankPlayerController_1::GetControlledTank() const {
-	return Cast<ATank>(GetPawn());
+void ATankPlayerController_1::BeginPlay() 
+{
+	Super::BeginPlay();
+
+	auto ControlledTank = GetControlledTank();
+	FString TankName = ControlledTank->GetName();
+
+	if (!ControlledTank)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller not possesing a tank"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller BeginPlay %s"), *TankName);
+	}
+
+
 }
 
+ATank* ATankPlayerController_1::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn());
+}
 
 
 
